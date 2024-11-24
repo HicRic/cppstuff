@@ -128,6 +128,7 @@
     <ClCompile Include="resources\resources.cpp" />
     <ClCompile Include="cppstuff.cpp" />
     <ClCompile Include="state\State.cpp" />
+    <ClCompile Include="systems\grideditor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config\config.h" />
@@ -138,15 +139,13 @@
     <ClInclude Include="resources\resources.h" />
     <ClInclude Include="cppstuff.h" />
     <ClInclude Include="state\State.h" />
+    <ClInclude Include="systems\grideditor.h" />
     <ClInclude Include="text.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\dearimgui\dearimgui.vcxproj">
       <Project>{73dd758a-9eb6-49eb-a4d8-a2892f5a57fd}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="systems\" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

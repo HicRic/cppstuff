@@ -10,7 +10,7 @@
 #include "draw/draw.h"
 #include "input/input.h"
 #include "state/State.h"
-
+#include "systems/grideditor.h"
 
 namespace
 {
@@ -36,14 +36,18 @@ void UpdateInput(State::Input& input)
 	input.verticalMovement = 0;
 	input.verticalMovement += (Input::IsKeyDown(KEY_UP) || Input::IsKeyDown(KEY_W)) ? -1.f : 0;
 	input.verticalMovement += (Input::IsKeyDown(KEY_DOWN) || Input::IsKeyDown(KEY_S)) ? 1.f : 0;
+
+	input.mousePos = GetMousePosition();
+	input.isMouseLeftButtonDown = IsMouseButtonDown(MOUSE_BUTTON_LEFT);
 }
 
-void Update(const State::Input& /*input*/, State::World& /*world*/, const Config& /*config*/)
+void Update(const State::Input& input, State::World& world)
 {
-	//PlayerSystem::Update(state.sim, state.input, config);
+	static GridEditor gridEditorSystem;
+	gridEditorSystem.update(input, world);
 }
 
-void InitSim(State::World& world, const Config& /*config*/)
+void InitSim(State::World& world)
 {
 	world.cam.target = Vector2 {0,0};
 	world.cam.zoom = 1.f;
@@ -87,14 +91,11 @@ void ImGuiRender()
 
 int main(int /*argc*/, char* /*args*/[])
 {
-	SetConfigFlags(FLAG_VSYNC_HINT);
+	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_RESIZABLE);
 	//SetTargetFPS(144);
 	
-	Config config = {};
-	printf("Config struct: %llu bytes\n", sizeof(Config));
-
-	InitWindow(config.screenWidth, config.screenHeight, TITLE);
-	SetWindowMinSize(config.screenWidth, config.screenHeight);
+	InitWindow(Config::SCREEN_WIDTH, Config::SCREEN_HEIGHT, Text::TITLE);
+	SetWindowMinSize(Config::SCREEN_WIDTH, Config::SCREEN_HEIGHT);
 	SetExitKey(KEY_ESCAPE);
 
 	Resources res = {};
@@ -110,17 +111,17 @@ int main(int /*argc*/, char* /*args*/[])
 	ImGuiInit();
 
 	UpdateInput(input);
-	InitSim(world, config);
+	InitSim(world);
 	
 	while (!WindowShouldClose())
 	{
 		ImGuiUpdate();
 		
 		UpdateInput(input);
-		Update(input, world, config);
+		Update(input, world);
 
 		BeginDrawing();
-		DrawGame(world, res, config);
+		DrawGame(world, res);
 		ImGuiRender();
 		EndDrawing();
 	}

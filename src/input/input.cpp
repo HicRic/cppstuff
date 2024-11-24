@@ -1,11 +1,13 @@
 #include "pch.h"
 #include "input.h"
-#include "raylib.h"
 
-bool ImGuiWantsKeyboard()
+namespace
 {
-	const ImGuiIO& io = ImGui::GetIO();
-	return io.WantCaptureKeyboard;
+	bool ImGuiWantsKeyboard()
+	{
+		const ImGuiIO& io = ImGui::GetIO();
+		return io.WantCaptureKeyboard;
+	}
 }
 
 bool Input::IsKeyDown(int key)

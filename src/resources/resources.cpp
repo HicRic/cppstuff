@@ -3,20 +3,20 @@
 
 namespace
 {
-	constexpr char cannonTexturePath[] = "res/textures/cannon.png";
-	constexpr char missileTexturePath[] = "res/textures/missile.png";
-	constexpr char alien1TexturePath[] = "res/textures/alien1.png";
-	constexpr char alien2TexturePath[] = "res/textures/alien2.png";
+	constexpr char CANNON_TEXTURE_PATH[] = "res/textures/cannon.png";
+	constexpr char MISSILE_TEXTURE_PATH[] = "res/textures/missile.png";
+	constexpr char ALIEN1_TEXTURE_PATH[] = "res/textures/alien1.png";
+	constexpr char ALIEN2_TEXTURE_PATH[] = "res/textures/alien2.png";
 }
 
 void Resources::load()
 {
 	assert(!loaded);
 	loaded = true;
-	cannon = LoadTexture(cannonTexturePath);
-	missile = LoadTexture(missileTexturePath);
-	alien1 = LoadTexture(alien1TexturePath);
-	alien2 = LoadTexture(alien2TexturePath);
+	cannon = LoadTexture(CANNON_TEXTURE_PATH);
+	missile = LoadTexture(MISSILE_TEXTURE_PATH);
+	alien1 = LoadTexture(ALIEN1_TEXTURE_PATH);
+	alien2 = LoadTexture(ALIEN2_TEXTURE_PATH);
 }
 
 void Resources::unload()

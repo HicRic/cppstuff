@@ -1,7 +1,5 @@
 #pragma once
 
-#include <raylib.h>
-
 struct Resources
 {
 	Resources() = default;

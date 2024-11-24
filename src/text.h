@@ -2,5 +2,6 @@
 
 namespace Text
 {
-	static const char* TITLE = "CPP STUFF";
+	constexpr char TITLE[] = "CPP STUFF";
+	constexpr char VERSION[] = "0.1";
 }

@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cppstuff", "cppstuff.vcxproj", "{E742B151-E57E-4638-89A0-A05B40291A2B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dearimgui", "..\dearimgui\dearimgui.vcxproj", "{73DD758A-9EB6-49EB-A4D8-A2892F5A57FD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E742B151-E57E-4638-89A0-A05B40291A2B}.Debug|x64.ActiveCfg = Debug|x64
+		{E742B151-E57E-4638-89A0-A05B40291A2B}.Debug|x64.Build.0 = Debug|x64
+		{E742B151-E57E-4638-89A0-A05B40291A2B}.Release|x64.ActiveCfg = Release|x64
+		{E742B151-E57E-4638-89A0-A05B40291A2B}.Release|x64.Build.0 = Release|x64
+		{73DD758A-9EB6-49EB-A4D8-A2892F5A57FD}.Debug|x64.ActiveCfg = Debug|x64
+		{73DD758A-9EB6-49EB-A4D8-A2892F5A57FD}.Debug|x64.Build.0 = Debug|x64
+		{73DD758A-9EB6-49EB-A4D8-A2892F5A57FD}.Release|x64.ActiveCfg = Release|x64
+		{73DD758A-9EB6-49EB-A4D8-A2892F5A57FD}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3679A0D7-1018-4F5F-AC96-3F5C5014E284}
+	EndGlobalSection
+EndGlobal

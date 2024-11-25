@@ -107,9 +107,9 @@ namespace
 
 	void drawUI(const State::World& /*world*/)
 	{
-		//DrawLabeledInt(Text::Score, state.sim.rules.score, 20, 20, 20, WHITE);
-		//DrawLabeledInt(Text::Lives, state.sim.rules.lives, 20, 45, 20, WHITE);
-		DrawFPS(GetScreenWidth() - 100, 20);
+		drawLabeledInt(Text::FRAME_TIME_MICROSECONDS, (int)(GetFrameTime()*1'000'000.0f), 20, 40, 20, GREEN);
+		DrawFPS(20, 20);
+		
 	}
 }
 

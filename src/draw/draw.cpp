@@ -8,9 +8,9 @@
 
 namespace
 {
-	Vector2 gridToWorld(int x, int y, float gridScale)
+	Vector2 gridToWorld(Int2 pos, float gridScale)
 	{
-		const Vector2 result { (float)x * gridScale + gridScale/2.0f, (float)y * gridScale + gridScale/2.0f};
+		const Vector2 result { (float)pos.x * gridScale + gridScale/2.0f, (float)pos.y * gridScale + gridScale/2.0f};
 		return result;
 	}
 	
@@ -65,17 +65,27 @@ namespace
 		}
 	}
 
+	void drawPath(const State::World& world)
+	{
+		for (const Int2 step : world.path)
+		{
+			const Vector2 pos = gridToWorld(step, world.gridScale);
+			DrawCircleV(pos, world.gridScale/2.0f, GREEN);
+		}
+	}
+
 	void drawAll2D(const State::World& world, const Resources& res)
 	{
 		BeginMode2D(world.cam);
 
 		drawGrid(world);
 		drawTiles(world);
+		drawPath(world);
 
-		const Vector2 startPos = gridToWorld(world.startX, world.startY, world.gridScale);
+		const Vector2 startPos = gridToWorld(world.start, world.gridScale);
 		drawTextureCentered(res.cannon, startPos, 0.0f, 0.75f, DARKBLUE);
 
-		const Vector2 goalPos = gridToWorld(world.goalX, world.goalY, world.gridScale);
+		const Vector2 goalPos = gridToWorld(world.goal, world.gridScale);
 		drawTextureCentered(res.alien1, goalPos, 0.0f, 1.0f, RED);
 
 		EndMode2D();

@@ -11,6 +11,7 @@
 #include "input/input.h"
 #include "state/state.h"
 #include "systems/grideditor.h"
+#include "systems/pathfind.h"
 
 namespace
 {
@@ -23,6 +24,8 @@ void update(const State::Input& input, State::World& world)
 {
 	static GridEditor gridEditorSystem;
 	gridEditorSystem.update(input, world);
+
+	Pathfind::update(world);
 }
 
 void initSim(State::World& world)

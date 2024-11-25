@@ -31,13 +31,13 @@ void GridEditor::update(const State::Input& input, State::World& world)
 
     if (input.isStartPlacementInputActive && isMouseInGridBounds)
     {
-        world.startX = mouseGridX;
-        world.startY = mouseGridY;
+        world.start.x = mouseGridX;
+        world.start.y = mouseGridY;
     }
 
     if (input.isGoalPlacementInputActive && isMouseInGridBounds)
     {
-        world.goalX = mouseGridX;
-        world.goalY = mouseGridY;
+        world.goal.x = mouseGridX;
+        world.goal.y = mouseGridY;
     }
 }

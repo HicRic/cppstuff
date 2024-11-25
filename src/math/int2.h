@@ -30,10 +30,11 @@ struct Int2
     }
 };
 
-constexpr Int2 VEC2_UP{ 0, -1 };
-constexpr Int2 VEC2_DOWN{ 0, 1 };
-constexpr Int2 VEC2_LEFT{ -1, 0 };
-constexpr Int2 VEC2_RIGHT{ 1, 0 };
+constexpr Int2 INT2_UP { 0, -1 };
+constexpr Int2 INT2_DOWN { 0, 1 };
+constexpr Int2 INT2_LEFT { -1, 0 };
+constexpr Int2 INT2_RIGHT { 1, 0 };
+constexpr Int2 INT2_DIRECTIONS[] { INT2_UP, INT2_LEFT, INT2_DOWN, INT2_RIGHT };
 
 struct Int2Hash
 {

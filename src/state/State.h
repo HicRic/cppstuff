@@ -20,8 +20,8 @@ namespace State
 
     enum class Tile : char
     {
-        wall = 0,
-        floor = 1
+        floor = 0,
+        wall = 1
     };
 
     struct World
@@ -36,12 +36,9 @@ namespace State
         void set(int x, int y, Tile tile);
         std::array<Tile, (size_t)Config::GRID_SIZE_X * Config::GRID_SIZE_Y> tiles {};
 
-        int goalX = 0;
-        int goalY = 0;
-
-        int startX = 0;
-        int startY = 0;
-
+        Int2 start {};
+        Int2 goal {};
+        
         std::vector<Int2> path;
     };
 }

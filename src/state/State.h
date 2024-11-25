@@ -1,5 +1,6 @@
 #pragma once
 #include "config/config.h"
+#include "math/int2.h"
 
 namespace State
 {
@@ -40,5 +41,7 @@ namespace State
 
         int startX = 0;
         int startY = 0;
+
+        std::vector<Int2> path;
     };
 }

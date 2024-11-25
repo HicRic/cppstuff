@@ -22,37 +22,9 @@ namespace
 		const Vector2 offset = { width / 2.f, height / 2.f };
 		const Rectangle sourceRect { 0, 0, (float)texture.width, (float)texture.height };
 		const Rectangle destRect { position.x, position.y, width, height };
-		//DrawRectanglePro(destRect, offset, rotation, YELLOW);
 		
 		DrawTexturePro(texture, sourceRect, destRect, offset, rotation, color);
 	}
-
-
-	// void DrawEnemies(double time, const Enemies& enemies, const Resources& res, const Config& config)
-	// {
-	// 	const Vector2 offset = { -res.alien1.width / 2.f, -res.alien1.height / 2.f };
-	//
-	// 	const int frame = (int64_t)(time * 2.5) % 2;
-	//
-	// 	for (int i = 0; i < enemies.activeCount; ++i)
-	// 	{
-	// 		Vector2 pos = enemies.formationPosition;
-	// 		pos.x += enemies.formationCoords[i].x * config.formationDistX;
-	// 		pos.x += offset.x;
-	// 		pos.y += enemies.formationCoords[i].y * config.formationDistY;
-	// 		pos.y += offset.y;
-	// 		DrawTextureEx(frame == 0 ? res.alien1 : res.alien2, pos, 0, 1, GRAY);
-	//
-	// 		//DrawRectangleLinesEx(CollisionSystem::CalcRect(enemies, config, i), 1.0f, RED);
-	// 	}
-	//
-	// 	/*Rectangle enemyRect = EnemySystem::CalcFormationRect(enemies, config);
-	// 	enemyRect.x += enemies.formationPosition.x;
-	// 	enemyRect.y += enemies.formationPosition.y;
-	// 	Rectangle boundsRect = EnemySystem::CalcBoundsRect(config);
-	// 	DrawRectangleLinesEx(enemyRect, 2.f, RED);
-	// 	DrawRectangleLinesEx(boundsRect, 2.f, GREEN);*/
-	// }
 
 	void drawGrid(const State::World& world)
 	{
@@ -105,14 +77,6 @@ namespace
 
 		const Vector2 goalPos = gridToWorld(world.goalX, world.goalY, world.gridScale);
 		drawTextureCentered(res.alien1, goalPos, 0.0f, 1.0f, RED);
-	
-		//DrawTextureCentered(res.alien1, config.testpos, 0, 1, RED);
-
-		// DrawProjectiles(state.sim.playerProjectiles, config, res.missile, 0, BLUE);
-		// DrawProjectiles(state.sim.enemyProjectiles, config, res.missile, 180, RED);
-		// DrawPlayer(state, res, config);
-		//
-		// DrawEnemies(state.input.time, state.sim.enemies, res, config);
 
 		EndMode2D();
 	}

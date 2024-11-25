@@ -121,6 +121,7 @@
     <ClCompile Include="draw\draw.cpp" />
     <ClCompile Include="input\input.cpp" />
     <ClCompile Include="math\math.cpp" />
+    <ClCompile Include="math\int2.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -129,17 +130,20 @@
     <ClCompile Include="cppstuff.cpp" />
     <ClCompile Include="state\state.cpp" />
     <ClCompile Include="systems\grideditor.cpp" />
+    <ClCompile Include="systems\pathfind.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config\config.h" />
     <ClInclude Include="draw\draw.h" />
     <ClInclude Include="input\input.h" />
     <ClInclude Include="math\math.h" />
+    <ClInclude Include="math\int2.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="resources\resources.h" />
     <ClInclude Include="cppstuff.h" />
     <ClInclude Include="state\state.h" />
     <ClInclude Include="systems\grideditor.h" />
+    <ClInclude Include="systems\pathfind.h" />
     <ClInclude Include="text.h" />
   </ItemGroup>
   <ItemGroup>

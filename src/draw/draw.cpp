@@ -4,7 +4,7 @@
 #include "resources/resources.h"
 #include "config/config.h"
 #include "text.h"
-#include "state/State.h"
+#include "state/state.h"
 
 namespace
 {

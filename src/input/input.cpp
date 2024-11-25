@@ -10,22 +10,22 @@ namespace
 	}
 }
 
-bool Input::IsKeyDown(int key)
+bool Input::isKeyDown(int key)
 {
 	return !ImGuiWantsKeyboard() && ::IsKeyDown(key);
 }
 
-bool Input::IsKeyPressed(int key)
+bool Input::isKeyPressed(int key)
 {
 	return !ImGuiWantsKeyboard() && ::IsKeyPressed(key);
 }
 
-bool Input::IsKeyReleased(int key)
+bool Input::isKeyReleased(int key)
 {
 	return !ImGuiWantsKeyboard() && ::IsKeyReleased(key);
 }
 
-bool Input::IsKeyUp(int key)
+bool Input::isKeyUp(int key)
 {
 	return !ImGuiWantsKeyboard() && ::IsKeyUp(key);
 }

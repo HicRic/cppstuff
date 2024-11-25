@@ -2,7 +2,7 @@
 
 namespace Math
 {
-	template<typename T> static T Clamp(T x, T min, T max) { return (x < min) ? min : (x > max) ? max : x; }
+	template<typename T> static T clamp(T x, T min, T max) { return (x < min) ? min : (x > max) ? max : x; }
 
 	/**
 	 * \brief Thread-unsafe random float
@@ -10,5 +10,5 @@ namespace Math
 	 * \param max Exclusive max bounds
 	 * \return Random float
 	 */
-	float RandomRange(float min, float max);
+	float randomRange(float min, float max);
 }

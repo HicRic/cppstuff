@@ -2,8 +2,8 @@
 
 namespace Input
 {
-	bool IsKeyDown(int key);
-	bool IsKeyPressed(int key);
-	bool IsKeyReleased(int key);
-	bool IsKeyUp(int key);
+	bool isKeyDown(int key);
+	bool isKeyPressed(int key);
+	bool isKeyReleased(int key);
+	bool isKeyUp(int key);
 }

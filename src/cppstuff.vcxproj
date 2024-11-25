@@ -127,7 +127,7 @@
     </ClCompile>
     <ClCompile Include="resources\resources.cpp" />
     <ClCompile Include="cppstuff.cpp" />
-    <ClCompile Include="state\State.cpp" />
+    <ClCompile Include="state\state.cpp" />
     <ClCompile Include="systems\grideditor.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -138,7 +138,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="resources\resources.h" />
     <ClInclude Include="cppstuff.h" />
-    <ClInclude Include="state\State.h" />
+    <ClInclude Include="state\state.h" />
     <ClInclude Include="systems\grideditor.h" />
     <ClInclude Include="text.h" />
   </ItemGroup>

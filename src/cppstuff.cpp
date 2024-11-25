@@ -9,7 +9,7 @@
 #include "resources/resources.h"
 #include "draw/draw.h"
 #include "input/input.h"
-#include "state/State.h"
+#include "state/state.h"
 #include "systems/grideditor.h"
 
 namespace
@@ -30,12 +30,12 @@ void UpdateInput(State::Input& input)
 	input.time = GetTime() + UINT_MAX;
 
 	input.horizontalMovement = 0;
-	input.horizontalMovement += (Input::IsKeyDown(KEY_LEFT) || Input::IsKeyDown(KEY_A)) ? -1.f : 0;
-	input.horizontalMovement += (Input::IsKeyDown(KEY_RIGHT) || Input::IsKeyDown(KEY_D)) ? 1.f : 0;
+	input.horizontalMovement += (Input::isKeyDown(KEY_LEFT) || Input::isKeyDown(KEY_A)) ? -1.f : 0;
+	input.horizontalMovement += (Input::isKeyDown(KEY_RIGHT) || Input::isKeyDown(KEY_D)) ? 1.f : 0;
 
 	input.verticalMovement = 0;
-	input.verticalMovement += (Input::IsKeyDown(KEY_UP) || Input::IsKeyDown(KEY_W)) ? -1.f : 0;
-	input.verticalMovement += (Input::IsKeyDown(KEY_DOWN) || Input::IsKeyDown(KEY_S)) ? 1.f : 0;
+	input.verticalMovement += (Input::isKeyDown(KEY_UP) || Input::isKeyDown(KEY_W)) ? -1.f : 0;
+	input.verticalMovement += (Input::isKeyDown(KEY_DOWN) || Input::isKeyDown(KEY_S)) ? 1.f : 0;
 
 	input.mousePos = GetMousePosition();
 	input.isMouseLeftButtonDown = IsMouseButtonDown(MOUSE_BUTTON_LEFT);

@@ -1,5 +1,5 @@
 #pragma once
-#include "state/State.h"
+#include "state/state.h"
 
 class GridEditor
 {

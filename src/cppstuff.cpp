@@ -121,7 +121,7 @@ int main(int /*argc*/, char* /*args*/[])
 		Update(input, world);
 
 		BeginDrawing();
-		DrawGame(world, res);
+		Draw::drawGame(world, res);
 		ImGuiRender();
 		EndDrawing();
 	}

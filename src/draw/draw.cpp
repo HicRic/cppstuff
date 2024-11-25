@@ -8,6 +8,12 @@
 
 namespace
 {
+	Vector2 gridToWorld(int x, int y, float gridScale)
+	{
+		const Vector2 result { (float)x * gridScale + gridScale/2.0f, (float)y * gridScale + gridScale/2.0f};
+		return result;
+	}
+	
 	void drawTextureCentered(const Texture2D& texture, Vector2 position, float rotation, float scale, Color color)
 	{
 		const float width = (float)texture.width * scale;
@@ -87,12 +93,18 @@ namespace
 		}
 	}
 
-	void drawAll2D(const State::World& world, const Resources& /*res*/)
+	void drawAll2D(const State::World& world, const Resources& res)
 	{
 		BeginMode2D(world.cam);
 
 		drawGrid(world);
 		drawTiles(world);
+
+		const Vector2 startPos = gridToWorld(world.startX, world.startY, world.gridScale);
+		drawTextureCentered(res.cannon, startPos, 0.0f, 0.75f, DARKBLUE);
+
+		const Vector2 goalPos = gridToWorld(world.goalX, world.goalY, world.gridScale);
+		drawTextureCentered(res.alien1, goalPos, 0.0f, 1.0f, RED);
 	
 		//DrawTextureCentered(res.alien1, config.testpos, 0, 1, RED);
 

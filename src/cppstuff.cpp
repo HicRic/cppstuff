@@ -17,37 +17,15 @@ namespace
 	bool showImgui = false;
 }
 
-void UpdateInput(State::Input& input) 
-{
-	input.deltaTime = GetFrameTime();
 
-	// Why add UINT_MAX to time?
-	// https://randomascii.wordpress.com/2012/02/13/dont-store-that-in-a-float/
-	// Time is best stored in a double due to precision issues after running for a while,
-	// and 'starting' time at 2^32 means the precision doesn't change over time.
-	// This helps us discover precision issues where we've used floats to store time,
-	// as the precision issues will occur immediately instead of requiring hours of play.
-	input.time = GetTime() + UINT_MAX;
 
-	input.horizontalMovement = 0;
-	input.horizontalMovement += (Input::isKeyDown(KEY_LEFT) || Input::isKeyDown(KEY_A)) ? -1.f : 0;
-	input.horizontalMovement += (Input::isKeyDown(KEY_RIGHT) || Input::isKeyDown(KEY_D)) ? 1.f : 0;
-
-	input.verticalMovement = 0;
-	input.verticalMovement += (Input::isKeyDown(KEY_UP) || Input::isKeyDown(KEY_W)) ? -1.f : 0;
-	input.verticalMovement += (Input::isKeyDown(KEY_DOWN) || Input::isKeyDown(KEY_S)) ? 1.f : 0;
-
-	input.mousePos = GetMousePosition();
-	input.isMouseLeftButtonDown = IsMouseButtonDown(MOUSE_BUTTON_LEFT);
-}
-
-void Update(const State::Input& input, State::World& world)
+void update(const State::Input& input, State::World& world)
 {
 	static GridEditor gridEditorSystem;
 	gridEditorSystem.update(input, world);
 }
 
-void InitSim(State::World& world)
+void initSim(State::World& world)
 {
 	world.cam.target = Vector2 {0,0};
 	world.cam.zoom = 1.f;
@@ -57,7 +35,7 @@ void InitSim(State::World& world)
 
 }
 
-void ImGuiInit()
+void imGuiInit()
 {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -66,7 +44,7 @@ void ImGuiInit()
 	ImGui_ImplRaylib_LoadDefaultFontAtlas();
 }
 
-void ImGuiUpdate()
+void imGuiUpdate()
 {
 	ImGui_ImplRaylib_NewFrame();
 	ImGui::NewFrame();
@@ -83,7 +61,7 @@ void ImGuiUpdate()
 	}
 }
 
-void ImGuiRender()
+void imGuiRender()
 {
 	ImGui::Render();
 	ImGui_ImplRaylib_Render(ImGui::GetDrawData());
@@ -108,21 +86,21 @@ int main(int /*argc*/, char* /*args*/[])
 	State::World world = {};
 	printf("World struct: %llu bytes\n", sizeof(world));
 
-	ImGuiInit();
+	imGuiInit();
 
-	UpdateInput(input);
-	InitSim(world);
+	Input::update(input);
+	initSim(world);
 	
 	while (!WindowShouldClose())
 	{
-		ImGuiUpdate();
+		imGuiUpdate();
 		
-		UpdateInput(input);
-		Update(input, world);
+		Input::update(input);
+		update(input, world);
 
 		BeginDrawing();
 		Draw::drawGame(world, res);
-		ImGuiRender();
+		imGuiRender();
 		EndDrawing();
 	}
 

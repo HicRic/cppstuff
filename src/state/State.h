@@ -12,7 +12,9 @@ namespace State
         float verticalMovement = 0.0f;
         
         Vector2 mousePos {};
-        bool isMouseLeftButtonDown = false;
+        bool isTileToggleInputActive = false;
+        bool isStartPlacementInputActive = false;
+        bool isGoalPlacementInputActive = false;
     };
 
     enum class Tile : char
@@ -32,5 +34,11 @@ namespace State
         Tile get(int x, int y) const;
         void set(int x, int y, Tile tile);
         std::array<Tile, (size_t)Config::GRID_SIZE_X * Config::GRID_SIZE_Y> tiles {};
+
+        int goalX = 0;
+        int goalY = 0;
+
+        int startX = 0;
+        int startY = 0;
     };
 }

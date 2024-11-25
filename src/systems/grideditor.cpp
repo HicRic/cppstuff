@@ -5,14 +5,15 @@ void GridEditor::update(const State::Input& input, State::World& world)
 {
     using namespace State;
     
-    if (input.isMouseLeftButtonDown)
+    const int mouseGridX = (int)(input.mousePos.x / world.gridScale);
+    const int mouseGridY = (int)(input.mousePos.y / world.gridScale);
+    const bool isMouseInGridBounds = mouseGridX >= 0 && mouseGridY >= 0 && mouseGridX < Config::GRID_SIZE_X && mouseGridY < Config::GRID_SIZE_Y;
+    
+    if (input.isTileToggleInputActive)
     {
-        const int mouseGridX = (int)(input.mousePos.x / world.gridScale);
-        const int mouseGridY = (int)(input.mousePos.y / world.gridScale);
-
         if (mouseGridX != m_lastEditedX || mouseGridY != m_lastEditedY)
         {
-            if (mouseGridX >= 0 && mouseGridY >= 0 && mouseGridX < Config::GRID_SIZE_X && mouseGridY < Config::GRID_SIZE_Y)
+            if (isMouseInGridBounds)
             {
                 const Tile current = world.get(mouseGridX, mouseGridY);
                 world.set(mouseGridX, mouseGridY, current == Tile::wall ? Tile::floor : Tile::wall);
@@ -26,5 +27,17 @@ void GridEditor::update(const State::Input& input, State::World& world)
     {
         m_lastEditedX = -1;
         m_lastEditedY = -1;
+    }
+
+    if (input.isStartPlacementInputActive && isMouseInGridBounds)
+    {
+        world.startX = mouseGridX;
+        world.startY = mouseGridY;
+    }
+
+    if (input.isGoalPlacementInputActive && isMouseInGridBounds)
+    {
+        world.goalX = mouseGridX;
+        world.goalY = mouseGridY;
     }
 }

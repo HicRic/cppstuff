@@ -61,7 +61,8 @@ void Input::update(State::Input& input)
 	if (!imGuiWantsMouse())
 	{
 		input.mousePos = GetMousePosition();
-		input.isTileToggleInputActive = IsMouseButtonDown(MOUSE_BUTTON_LEFT);
+		input.isWallToggleInputActive = IsMouseButtonDown(MOUSE_BUTTON_LEFT);
+		input.isWaterToggleInputActive = IsMouseButtonDown(MOUSE_BUTTON_RIGHT);
 	}
 
 	if (!imGuiWantsKeyboard())

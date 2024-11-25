@@ -13,7 +13,8 @@ namespace State
         float verticalMovement = 0.0f;
         
         Vector2 mousePos {};
-        bool isTileToggleInputActive = false;
+        bool isWallToggleInputActive = false;
+        bool isWaterToggleInputActive = false;
         bool isStartPlacementInputActive = false;
         bool isGoalPlacementInputActive = false;
     };
@@ -21,7 +22,8 @@ namespace State
     enum class Tile : char
     {
         floor = 0,
-        wall = 1
+        wall = 1,
+        water = 2,
     };
 
     struct World

@@ -9,7 +9,7 @@
 
 namespace
 {
-    bool isFloor(Int2 pos, const State::World& world)
+    bool isWalkable(Int2 pos, const State::World& world)
     {
         const bool inBounds = pos.x >= 0 && pos.y >= 0 && pos.x < Config::GRID_SIZE_X && pos.y < Config::GRID_SIZE_Y;
         if (!inBounds)
@@ -17,7 +17,7 @@ namespace
             return false;
         }
 
-        return world.get(pos.x, pos.y) == State::Tile::floor;
+        return world.get(pos.x, pos.y) != State::Tile::wall;
     }
 
     void bfs(State::World& world)
@@ -44,7 +44,7 @@ namespace
             for (Int2 dir : INT2_DIRECTIONS)
             {
                 const Int2 next = current + dir;
-                if (isFloor(next, world) && cameFrom.find(next) == cameFrom.cend())
+                if (isWalkable(next, world) && cameFrom.find(next) == cameFrom.cend())
                 {
                     frontier.push(next);
                     cameFrom[next] = current;

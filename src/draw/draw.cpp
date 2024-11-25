@@ -57,9 +57,17 @@ namespace
 			for (int gridX = 0; gridX < Config::GRID_SIZE_X; ++gridX)
 			{
 				const float x = (float)gridX * world.gridScale + offset;
-				if (world.get(gridX, gridY) == State::Tile::wall)
+				
+				switch (world.get(gridX, gridY))
 				{
-					DrawRectangleRounded({x, y, squareSize, squareSize}, 0.5f, 10, GRAY);
+					case State::Tile::floor:
+						break;
+					case State::Tile::wall:
+						DrawRectangleRounded({x, y, squareSize, squareSize}, 0.5f, 10, GRAY);
+						break;
+					case State::Tile::water:
+						DrawRectangleRounded({x, y, squareSize, squareSize}, 0.5f, 10, BLUE);
+						break;
 				}
 			}
 		}

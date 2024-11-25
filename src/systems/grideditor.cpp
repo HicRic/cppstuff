@@ -9,14 +9,21 @@ void GridEditor::update(const State::Input& input, State::World& world)
     const int mouseGridY = (int)(input.mousePos.y / world.gridScale);
     const bool isMouseInGridBounds = mouseGridX >= 0 && mouseGridY >= 0 && mouseGridX < Config::GRID_SIZE_X && mouseGridY < Config::GRID_SIZE_Y;
     
-    if (input.isTileToggleInputActive)
+    if (input.isWallToggleInputActive || input.isWaterToggleInputActive)
     {
         if (mouseGridX != m_lastEditedX || mouseGridY != m_lastEditedY)
         {
             if (isMouseInGridBounds)
             {
                 const Tile current = world.get(mouseGridX, mouseGridY);
-                world.set(mouseGridX, mouseGridY, current == Tile::wall ? Tile::floor : Tile::wall);
+                if (input.isWallToggleInputActive)
+                {
+                    world.set(mouseGridX, mouseGridY, current == Tile::wall ? Tile::floor : Tile::wall);
+                }
+                else if (input.isWaterToggleInputActive)
+                {
+                    world.set(mouseGridX, mouseGridY, current == Tile::water ? Tile::floor : Tile::water);
+                }
             }
             
             m_lastEditedX = mouseGridX;

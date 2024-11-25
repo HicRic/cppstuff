@@ -94,6 +94,8 @@ namespace Pathfind
             {
                 searchType = SearchType::astar;
             }
+
+            ImGui::TreePop();
         }
 
         world.path.clear();

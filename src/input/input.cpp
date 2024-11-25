@@ -10,6 +10,12 @@ namespace
 		const ImGuiIO& io = ImGui::GetIO();
 		return io.WantCaptureKeyboard;
 	}
+	
+	bool imGuiWantsMouse()
+	{
+		const ImGuiIO& io = ImGui::GetIO();
+		return io.WantCaptureMouse;
+	}
 }
 
 bool Input::isKeyDown(int key)
@@ -52,8 +58,15 @@ void Input::update(State::Input& input)
 	input.verticalMovement += (isKeyDown(KEY_UP) || isKeyDown(KEY_W)) ? -1.f : 0;
 	input.verticalMovement += (isKeyDown(KEY_DOWN) || isKeyDown(KEY_S)) ? 1.f : 0;
 
-	input.mousePos = GetMousePosition();
-	input.isTileToggleInputActive = IsMouseButtonDown(MOUSE_BUTTON_LEFT);
-	input.isStartPlacementInputActive = IsKeyDown(KEY_ONE);
-	input.isGoalPlacementInputActive = IsKeyDown(KEY_TWO);
+	if (!imGuiWantsMouse())
+	{
+		input.mousePos = GetMousePosition();
+		input.isTileToggleInputActive = IsMouseButtonDown(MOUSE_BUTTON_LEFT);
+	}
+
+	if (!imGuiWantsKeyboard())
+	{
+		input.isStartPlacementInputActive = IsKeyDown(KEY_ONE);
+		input.isGoalPlacementInputActive = IsKeyDown(KEY_TWO);
+	}
 }

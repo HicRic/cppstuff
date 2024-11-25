@@ -72,7 +72,7 @@ void imGuiRender()
 
 int main(int /*argc*/, char* /*args*/[])
 {
-	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_RESIZABLE);
+	SetConfigFlags(/*FLAG_VSYNC_HINT |*/ FLAG_WINDOW_RESIZABLE);
 	//SetTargetFPS(144);
 	
 	InitWindow(Config::SCREEN_WIDTH, Config::SCREEN_HEIGHT, Text::TITLE);

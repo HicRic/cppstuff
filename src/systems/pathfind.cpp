@@ -7,7 +7,7 @@
 
 #include "state/state.h"
 
-namespace Pathfind
+namespace
 {
     bool isFloor(Int2 pos, const State::World& world)
     {
@@ -20,15 +20,8 @@ namespace Pathfind
         return world.get(pos.x, pos.y) == State::Tile::floor;
     }
 
-    void update(State::World& world)
+    void bfs(State::World& world)
     {
-        world.path.clear();
-
-        if (world.start == world.goal)
-        {
-            return;
-        }
-        
         std::queue<Int2> frontier;
         frontier.push(world.start);
 
@@ -67,6 +60,57 @@ namespace Pathfind
                 world.path.push_back(current);
                 current = cameFrom[current];
             }
+        }
+    }
+
+    enum class SearchType
+    {
+        bfs,
+        dijkstras,
+        astar
+    };
+}
+
+namespace Pathfind
+{
+    void update(State::World& world)
+    {
+        
+        static SearchType searchType = SearchType::bfs;
+        
+        if (ImGui::TreeNode("Pathfind"))
+        {
+            if (ImGui::Selectable("BFS", searchType == SearchType::bfs))
+            {
+                searchType = SearchType::bfs;
+            }
+            
+            if (ImGui::Selectable("Dijkstra's", searchType == SearchType::dijkstras))
+            {
+                searchType = SearchType::dijkstras;
+            }
+            
+            if (ImGui::Selectable("A*", searchType == SearchType::astar))
+            {
+                searchType = SearchType::astar;
+            }
+        }
+
+        world.path.clear();
+        if (world.start == world.goal)
+        {
+            return;
+        }
+
+        switch (searchType)
+        {
+        case SearchType::bfs:
+            bfs(world);
+            break;
+        case SearchType::dijkstras:
+            break;
+        case SearchType::astar:
+            break;
         }
     }
 }

@@ -44,6 +44,11 @@ namespace
         return 1;
     }
 
+    int manhattanDistance(Int2 a, Int2 b)
+    {
+        return abs(a.x - b.x) + abs(a.y - b.y);
+    }
+
     void bfs(State::World& world)
     {
         std::queue<Int2> frontier;
@@ -107,7 +112,8 @@ namespace
         
         while (!frontier.empty())
         {
-            const auto [currentPos, cost] = frontier.top();
+            std::pair<Int2, int> top = frontier.top();
+            Int2 currentPos = top.first;
             frontier.pop();
 
             if (currentPos == world.goal)
@@ -146,10 +152,63 @@ namespace
         }
     }
 
+    void greedyBfs(State::World& world)
+    {
+        auto compare = [] (const std::pair<Int2, int>& pair1, const std::pair<Int2, int>& pair2)
+        {
+            return pair1.second > pair2.second;
+        };
+        std::priority_queue<std::pair<Int2, int>, std::vector<std::pair<Int2, int>>, decltype(compare)> frontier(compare);
+        frontier.emplace(world.start, 0);
+
+        std::unordered_map<Int2, Int2, Int2Hash> cameFrom;
+        cameFrom[world.start] = Int2{};
+
+        bool pathFound = false;
+        
+        while (!frontier.empty())
+        {
+            std::pair<Int2, int> top = frontier.top();
+            Int2 currentPos = top.first;
+            frontier.pop();
+
+            if (currentPos == world.goal)
+            {
+                pathFound = true;
+                break;
+            }
+
+            for (Int2 dir : INT2_DIRECTIONS)
+            {
+                const Int2 next = currentPos + dir;
+                const State::Tile nextTile = world.get(next);
+                if (isWalkable(nextTile))
+                {
+                    if (cameFrom.find(next) == cameFrom.cend())
+                    {
+                        frontier.emplace(next, manhattanDistance(world.goal, next));
+                        cameFrom[next] = currentPos;
+                    }
+                }
+            }
+        }
+
+        if (pathFound)
+        {
+            Int2 current = world.goal;
+            while (current != world.start)
+            {
+                world.path.push_back(current);
+                current = cameFrom[current];
+            }
+        }
+    }
+
     enum class SearchType
     {
         bfs,
         dijkstras,
+        greedybfs,
         astar
     };
 }
@@ -173,6 +232,11 @@ namespace Pathfind
             {
                 searchType = SearchType::dijkstras;
             }
+
+            if (ImGui::Selectable("Greedy BFS", searchType == SearchType::greedybfs))
+            {
+                searchType = SearchType::greedybfs;
+            }
             
             if (ImGui::Selectable("A*", searchType == SearchType::astar))
             {
@@ -195,6 +259,9 @@ namespace Pathfind
             break;
         case SearchType::dijkstras:
             dijkstras(world);
+            break;
+        case SearchType::greedybfs:
+            greedyBfs(world);
             break;
         case SearchType::astar:
             break;

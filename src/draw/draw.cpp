@@ -58,7 +58,7 @@ namespace
 			{
 				const float x = (float)gridX * world.gridScale + offset;
 				
-				switch (world.get(gridX, gridY))
+				switch (world.get({gridX,gridY}))
 				{
 					case State::Tile::floor:
 						break;
@@ -67,6 +67,8 @@ namespace
 						break;
 					case State::Tile::water:
 						DrawRectangleRounded({x, y, squareSize, squareSize}, 0.5f, 10, BLUE);
+						break;
+					case State::Tile::out_of_bounds:
 						break;
 				}
 			}

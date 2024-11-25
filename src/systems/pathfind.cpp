@@ -9,15 +9,39 @@
 
 namespace
 {
-    bool isWalkable(Int2 pos, const State::World& world)
+    bool isWalkable(State::Tile tile)
     {
-        const bool inBounds = pos.x >= 0 && pos.y >= 0 && pos.x < Config::GRID_SIZE_X && pos.y < Config::GRID_SIZE_Y;
-        if (!inBounds)
+        switch (tile)
         {
+        case State::Tile::out_of_bounds:
             return false;
+        case State::Tile::floor:
+            return true;
+        case State::Tile::wall:
+            return false;
+        case State::Tile::water:
+            return true;
         }
 
-        return world.get(pos.x, pos.y) != State::Tile::wall;
+        assert(false);
+        return false;
+    }
+
+    int getCost(State::Tile tile, const State::World& world)
+    {
+        switch (tile)
+        { 
+        case State::Tile::floor:
+            return world.floorMoveCost;
+        case State::Tile::water:
+            return world.waterMoveCost;
+        case State::Tile::out_of_bounds:
+        case State::Tile::wall:
+            break;
+        }
+
+        assert(false);
+        return 1;
     }
 
     void bfs(State::World& world)
@@ -44,10 +68,69 @@ namespace
             for (Int2 dir : INT2_DIRECTIONS)
             {
                 const Int2 next = current + dir;
-                if (isWalkable(next, world) && cameFrom.find(next) == cameFrom.cend())
+                const State::Tile nextTile = world.get(next);
+                if (isWalkable(nextTile) && cameFrom.find(next) == cameFrom.cend())
                 {
                     frontier.push(next);
                     cameFrom[next] = current;
+                }
+            }
+        }
+
+        if (pathFound)
+        {
+            Int2 current = world.goal;
+            while (current != world.start)
+            {
+                world.path.push_back(current);
+                current = cameFrom[current];
+            }
+        }
+    }
+
+    void dijkstras(State::World& world)
+    {
+        auto compare = [] (const std::pair<Int2, int>& pair1, const std::pair<Int2, int>& pair2)
+        {
+            return pair1.second > pair2.second;
+        };
+        std::priority_queue<std::pair<Int2, int>, std::vector<std::pair<Int2, int>>, decltype(compare)> frontier(compare);
+        frontier.emplace(world.start, 0);
+
+        std::unordered_map<Int2, Int2, Int2Hash> cameFrom;
+        cameFrom[world.start] = Int2{};
+
+        std::unordered_map<Int2, int, Int2Hash> costSoFar;
+        costSoFar[world.start] = 0;
+
+        bool pathFound = false;
+        
+        while (!frontier.empty())
+        {
+            const auto [currentPos, cost] = frontier.top();
+            frontier.pop();
+
+            if (currentPos == world.goal)
+            {
+                pathFound = true;
+                break;
+            }
+
+            for (Int2 dir : INT2_DIRECTIONS)
+            {
+                const Int2 next = currentPos + dir;
+                const State::Tile nextTile = world.get(next);
+                if (isWalkable(nextTile))
+                {
+                    const int newCost = costSoFar[currentPos] + getCost(nextTile, world);
+                    auto nextCostIter = costSoFar.find(next);
+                    const bool hasCost = nextCostIter != costSoFar.cend();
+                    if (!hasCost || newCost < nextCostIter->second)
+                    {
+                        costSoFar[next] = newCost;
+                        frontier.emplace(next, newCost);
+                        cameFrom[next] = currentPos;
+                    }
                 }
             }
         }
@@ -73,6 +156,7 @@ namespace
 
 namespace Pathfind
 {
+
     void update(State::World& world)
     {
         
@@ -110,6 +194,7 @@ namespace Pathfind
             bfs(world);
             break;
         case SearchType::dijkstras:
+            dijkstras(world);
             break;
         case SearchType::astar:
             break;

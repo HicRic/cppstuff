@@ -21,6 +21,7 @@ namespace State
 
     enum class Tile : char
     {
+        out_of_bounds = -1,
         floor = 0,
         wall = 1,
         water = 2,
@@ -31,11 +32,14 @@ namespace State
         float gridLineThickness = 1.0f;
         Color gridLineColor = GRAY;
         float gridScale = 32.0f;
+
+        int floorMoveCost = 1;
+        int waterMoveCost = 3;
         
         Camera2D cam {};
 
-        Tile get(int x, int y) const;
-        void set(int x, int y, Tile tile);
+        Tile get(Int2 pos) const;
+        void set(Int2 pos, Tile tile);
         std::array<Tile, (size_t)Config::GRID_SIZE_X * Config::GRID_SIZE_Y> tiles {};
 
         Int2 start {};
